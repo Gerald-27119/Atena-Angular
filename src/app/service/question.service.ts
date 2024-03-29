@@ -8,7 +8,7 @@ import {Topic} from "../enums/topic.enum";
   providedIn: 'root'
 })
 export class QuestionService {
-  private readonly apiUrl = 'nothing';
+  private readonly apiUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {
   }
@@ -26,7 +26,7 @@ export class QuestionService {
         catchError(this.handleError)
       );
   question$ = (id: number) => <Observable<CustomResponse>>
-    this.http.get<CustomResponse>(`${this.apiUrl}/question/${id}`)//1:26
+    this.http.get<CustomResponse>(`${this.apiUrl}/question/${id}`)
       .pipe(
         tap(console.log),
         catchError(this.handleError)
