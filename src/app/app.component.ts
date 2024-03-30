@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from "./service/question.service";
-import {catchError, map, Observable, of, startWith} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of, startWith, switchMap} from "rxjs";
 import {AppState} from "./interface/app-state";
 import {CustomResponse} from "./interface/custom-response";
 import {DataState} from "./enums/data-state.enum";
+import {Topic} from "./enums/topic.enum";
+import {Question} from "./interface/question";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,10 @@ import {DataState} from "./enums/data-state.enum";
 })
 export class AppComponent implements OnInit {
   appState$: Observable<AppState<CustomResponse>> | undefined;
+  selectedTopic$ = new BehaviorSubject<Topic | null>(null);
+  selectedQuestion$ = new BehaviorSubject<Question | null>(null);
+  topics = Object.values(Topic) as Topic[];
+  questionsForGivenTopic$: Observable<Question[]> | undefined;
 
   constructor(private questionService: QuestionService) {
 
@@ -27,6 +33,21 @@ export class AppComponent implements OnInit {
         catchError((error: string) => {
           return of({dataState: DataState.ERROR_STATE, error: error})
         })
-      )
+      );
+
+    this.questionsForGivenTopic$ = this.selectedTopic$.pipe(
+      switchMap(topic => topic ? this.questionService.questionsForGivenTopic$(topic) : of({} as CustomResponse)), // Cast to CustomResponse
+      map((response: CustomResponse) => response.data.questions || []) // Add this line
+    );
   }
+
+  selectTopic(topic: Topic): void {
+    this.selectedTopic$.next(topic);
+  }
+
+  selectQuestion(question: Question): void {
+    this.selectedQuestion$.next(question);
+  }
+
+  protected readonly Topic = Topic;
 }

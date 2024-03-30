@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  color: black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+html body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */

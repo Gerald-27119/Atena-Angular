@@ -1,0 +1,28 @@
+div {
+  header {
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2rem;
+    }
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    .left-content {
+
+    }
+
+    .right-content {
+
+    }
+  }
+
+  footer {
+
+  }
+}

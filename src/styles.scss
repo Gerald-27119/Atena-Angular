@@ -1,0 +1,16 @@
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+  font-family: "Ubuntu", sans-serif;;
+  font-weight: 500;
+  color: black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+}

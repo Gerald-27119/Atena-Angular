@@ -1,0 +1,12 @@
+div header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+}
+div main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+/*# sourceMappingURL=app.component.css.map */
