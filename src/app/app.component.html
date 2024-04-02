@@ -5,19 +5,14 @@
     </nav>
   </header>
   <main>
-    <div class="left-content">
-      <div *ngFor="let question of (questionsForGivenTopic$ | async); let i = index" (click)="selectQuestion(question)">
-        {{ i + 1 }}. {{ question.question }}
-      </div>
+    <div *ngFor="let subtopic of (subtopicsForGivenTopic$ | async)?.data?.subtopics; let i = index" (click)="selectSubtopic(selectedTopic, subtopic)">
+      {{ i + 1 }}. {{ subtopic }}
     </div>
-    <div class="right-content">
-      <div *ngIf="selectedQuestion$ | async as question">
-        <h2>{{ question.question }}</h2>
-        <p>{{ question.answer }}</p>
-      </div>
+    <div *ngFor="let question of (questionsForSubtopics$ | async)?.data?.questions">
+      {{ question.question }}
+      <ul>
+        <li *ngFor="let option of question.options">{{ option }}</li>
+      </ul>
     </div>
   </main>
-  <footer>
-
-  </footer>
 </div>

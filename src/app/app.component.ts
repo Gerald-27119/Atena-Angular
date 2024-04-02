@@ -1,53 +1,37 @@
 import {Component, OnInit} from '@angular/core';
 import {QuestionService} from "./service/question.service";
-import {BehaviorSubject, catchError, map, Observable, of, startWith, switchMap} from "rxjs";
-import {AppState} from "./interface/app-state";
+import {Observable, of} from "rxjs";
 import {CustomResponse} from "./interface/custom-response";
-import {DataState} from "./enums/data-state.enum";
-import {Topic} from "./enums/topic.enum";
-import {Question} from "./interface/question";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  appState$: Observable<AppState<CustomResponse>> | undefined;
-  selectedTopic$ = new BehaviorSubject<Topic | null>(null);
-  selectedQuestion$ = new BehaviorSubject<Question | null>(null);
-  topics = Object.values(Topic) as Topic[];
-  questionsForGivenTopic$: Observable<Question[]> | undefined;
+  topics = ['Java', 'CSS']; // Replace this with your actual topics
+  subtopicsForGivenTopic$: Observable<CustomResponse> = of({} as CustomResponse);
+  questionsForSubtopics$: Observable<CustomResponse>= of({} as CustomResponse);
+  selectedTopic: string;
 
   constructor(private questionService: QuestionService) {
-
+    this.selectedTopic = this.topics[0];
   }
-
   ngOnInit(): void {
-    this.appState$ = this.questionService.topics$
-      .pipe(
-        map(response => {
-          return {dataState: DataState.LOADED_STATE, appData: response}
-        }),
-        startWith({dataState: DataState.LOADING_STATE}),
-        catchError((error: string) => {
-          return of({dataState: DataState.ERROR_STATE, error: error})
-        })
-      );
-
-    this.questionsForGivenTopic$ = this.selectedTopic$.pipe(
-      switchMap(topic => topic ? this.questionService.questionsForGivenTopic$(topic) : of({} as CustomResponse)), // Cast to CustomResponse
-      map((response: CustomResponse) => response.data.questions || []) // Add this line
-    );
+    this.selectTopic(this.topics[0]);
+  }
+  selectTopic(topic: string): void {
+    this.selectedTopic = topic;
+    this.subtopicsForGivenTopic$ = this.questionService.getSubtopicsForTopic$(topic);
+    this.subtopicsForGivenTopic$.subscribe(response => {
+      if (response.data.subtopics && response.data.subtopics.length > 0) {
+        this.selectSubtopic(this.selectedTopic, response.data.subtopics[0]);
+      }
+    });
   }
 
-  selectTopic(topic: Topic): void {
-    this.selectedTopic$.next(topic);
+  selectSubtopic(topic: string, subtopic: string): void {
+    this.questionsForSubtopics$ = this.questionService.getQuestionsForSubtopic$(topic, subtopic);
   }
-
-  selectQuestion(question: Question): void {
-    this.selectedQuestion$.next(question);
-  }
-
-  protected readonly Topic = Topic;
 }
+
