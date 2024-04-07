@@ -1,3 +1,7 @@
-
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /*# sourceMappingURL=app.component.css.map */

@@ -1,0 +1,17 @@
+.quiz-window {
+  font-size: 3rem;
+  margin: 3rem;
+  width: 50vw;
+}
+.quiz-window .question {
+  border: 1px solid black;
+}
+.quiz-window .question ul {
+  list-style: none;
+  padding: 0;
+}
+.quiz-window .question ul li {
+  border: 1px solid black;
+}
+
+/*# sourceMappingURL=quiz.component.css.map */

@@ -1,0 +1,13 @@
+nav{
+  font-size: 3rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  a{
+    padding: 1rem;
+    border: solid black 1px;
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+}

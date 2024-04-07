@@ -1,0 +1,19 @@
+<div class="quiz-window">
+  <div class="question" *ngIf="(questionsForTopic$ | async)?.data?.questions as questions">
+    <div>
+      {{ questions[currentQuestionIndex].question }}
+      <ul>
+        <li *ngFor="let option of questions[currentQuestionIndex].options">{{ option }}</li>
+      </ul>
+    </div>
+
+    <button class="b1" (click)="currentQuestionIndex = currentQuestionIndex > 0 ? currentQuestionIndex - 1 : 0">
+      Previous
+    </button>
+    <button
+      class="b2"
+      (click)="currentQuestionIndex = currentQuestionIndex < questions.length - 1 ? currentQuestionIndex + 1 : currentQuestionIndex">
+      Next
+    </button>
+  </div>
+</div>

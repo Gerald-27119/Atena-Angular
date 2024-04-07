@@ -1,0 +1,29 @@
+.quiz-window {
+  font-size: 3rem;
+  margin: 3rem;
+  width: 50vw;
+
+  .question {
+    border: 1px solid black;
+
+    ul {
+      list-style: none;
+      padding: 0; //pozbywa się wcięcia przed <li>
+      li {
+        border: 1px solid black;
+      }
+    }
+  }
+
+  button {
+
+  }
+}
+
+.b1 {
+
+}
+
+.b2 {
+
+}

@@ -1,18 +1,7 @@
-<div>
-  <header>
-    <nav>
-      <a *ngFor="let topic of topics" (click)="selectTopic(topic)">{{ topic }}</a>
-    </nav>
-  </header>
-  <main>
-    <div *ngFor="let subtopic of (subtopicsForGivenTopic$ | async)?.data?.subtopics; let i = index" (click)="selectSubtopic(selectedTopic, subtopic)">
-      {{ i + 1 }}. {{ subtopic }}
-    </div>
-    <div *ngFor="let question of (questionsForSubtopics$ | async)?.data?.questions">
-      {{ question.question }}
-      <ul>
-        <li *ngFor="let option of question.options">{{ option }}</li>
-      </ul>
-    </div>
-  </main>
-</div>
+<header>
+  <app-header (topicSelected)="onTopicSelected($event)"></app-header>
+</header>
+
+<main>
+  <app-quiz [selectedTopic]="getSelectedTopic()"></app-quiz>
+</main>

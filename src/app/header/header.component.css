@@ -1,0 +1,15 @@
+nav {
+  font-size: 3rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+}
+nav a {
+  padding: 1rem;
+  border: solid black 1px;
+}
+nav a:hover {
+  background-color: lightgray;
+}
+
+/*# sourceMappingURL=header.component.css.map */
